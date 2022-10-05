@@ -2,7 +2,7 @@ import Link from "next/link";
 import classes from "./button.module.css";
 
 export interface IButtonProps {
-  children: JSX.Element | string;
+  children: JSX.Element | JSX.Element[] | string;
   link: string;
 }
 
