@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Button from "../ui/button";
 import classes from "./event-item.module.css";
 
 export interface IEventItemProps {
@@ -23,7 +24,7 @@ export default function EventItem({
   });
 
   const formattedAddress = location.replace(", ", "\n");
-  const exporeLink = `/events/${id}`;
+  const exploreLink = `/events/${id}`;
 
   return (
     <li className={classes.item}>
@@ -39,7 +40,7 @@ export default function EventItem({
           </div>
         </div>
         <div className={classes.actions}>
-          <Link href={exporeLink}>Explore event</Link>
+          <Button link={exploreLink}>Explore link</Button>
         </div>
       </div>
     </li>
