@@ -2,7 +2,8 @@ import { useRouter } from "next/router";
 
 export default function FilteredEventsPage() {
   const router = useRouter();
-  console.log(router.query);
+  const slug = router.query.slug;
+  console.log(slug);
 
   return (
     <div>
