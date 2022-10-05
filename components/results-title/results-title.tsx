@@ -2,7 +2,7 @@ import Button from "../ui/button";
 import classes from "./results-title.module.css";
 
 export interface IResultTitleProps {
-  date: string;
+  date: Date;
 }
 
 export default function ResultsTitle({ date }: IResultTitleProps) {
