@@ -1,3 +1,6 @@
+import fs from "fs/promises";
+import path from "path";
+
 import { GetStaticProps, GetStaticPropsContext, NextPage } from "next";
 import { Product } from "../types";
 
@@ -20,11 +23,12 @@ const HomePage: NextPage<IHomePageProps> = ({ products }) => {
 //can do server side things
 //code won't be run on client-side and this is not part of client bundle
 export const getStaticProps: GetStaticProps<IHomePageProps> = async () => {
+  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
+  const jsonData = await fs.readFile(filePath);
+  const data: { products: Product[] } = JSON.parse(jsonData.toString());
   return {
     props: {
-      products: [
-        { id: "p1", title: "Product 1", description: "Product 1 description" },
-      ],
+      products: data.products,
     },
   };
 };
