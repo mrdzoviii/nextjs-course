@@ -13,6 +13,9 @@ export interface IProductDetailPageProps {
 }
 
 const ProductDetailPage: NextPage = ({ product }: IProductDetailPageProps) => {
+  if (!product) {
+    return <p>Loading...</p>;
+  }
   return (
     <>
       <h1>{product.title}</h1>
@@ -50,12 +53,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const data: { products: Product[] } = JSON.parse(jsonData.toString());
 
   return {
-    paths: [
-      { params: { pid: "p1" } },
-      { params: { pid: "p2" } },
-      { params: { pid: "p3" } },
-    ],
-    fallback: false,
+    paths: [{ params: { pid: "p1" } }],
+    fallback: true, //could be blocking then server will wait to fetch data
   };
 };
 
