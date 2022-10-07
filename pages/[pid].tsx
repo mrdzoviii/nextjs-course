@@ -45,6 +45,12 @@ export const getStaticProps: GetStaticProps<IProductDetailPageProps> = async (
     };
   }
 
+  if (!product) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
       product,
