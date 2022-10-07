@@ -6,7 +6,7 @@ import {
 } from "next";
 import path from "path";
 import fs from "fs/promises";
-import { Product } from "../types";
+import { Product } from "../../types";
 
 export interface IProductDetailPageProps {
   product: Product;

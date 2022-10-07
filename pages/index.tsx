@@ -15,7 +15,7 @@ const HomePage: NextPage<IHomePageProps> = ({ products }) => {
       <ul>
         {products.map((product) => (
           <li key={product.id}>
-            <Link href={`/${product.id}`}>{product.title}</Link>
+            <Link href={`/products/${product.id}`}>{product.title}</Link>
           </li>
         ))}
       </ul>
