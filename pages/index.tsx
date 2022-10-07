@@ -3,6 +3,7 @@ import path from "path";
 
 import { GetStaticProps, GetStaticPropsContext, NextPage } from "next";
 import { Product } from "../types";
+import Link from "next/link";
 
 export interface IHomePageProps {
   products: Product[];
@@ -13,7 +14,9 @@ const HomePage: NextPage<IHomePageProps> = ({ products }) => {
     <div>
       <ul>
         {products.map((product) => (
-          <li key={product.id}>{product.title}</li>
+          <li key={product.id}>
+            <Link href={`/${product.id}`}>{product.title}</Link>
+          </li>
         ))}
       </ul>
     </div>
@@ -49,7 +52,7 @@ export const getStaticProps: GetStaticProps<IHomePageProps> = async (
       products: data.products,
     },
     revalidate: 120,
-    notFound: true, //404 error instead normal page, e.g if fetch fails then we maybe want to return 404 page
+    notFound: false, //404 error instead normal page, e.g if fetch fails then we maybe want to return 404 page
   };
 };
 
