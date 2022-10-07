@@ -24,14 +24,19 @@ const ProductDetailPage: NextPage = ({ product }: IProductDetailPageProps) => {
   );
 };
 
+const getData = async (): Promise<{ products: Product[] }> => {
+  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
+  const jsonData = await fs.readFile(filePath);
+  const data: { products: Product[] } = JSON.parse(jsonData.toString());
+  return data;
+};
+
 export const getStaticProps: GetStaticProps<IProductDetailPageProps> = async (
   ctx: GetServerSidePropsContext
 ) => {
   const { params } = ctx;
   const paramId = params.pid;
-  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
-  const jsonData = await fs.readFile(filePath);
-  const data: { products: Product[] } = JSON.parse(jsonData.toString());
+  const data = await getData();
   const product = data.products.find((prod) => prod.id === paramId);
 
   if (!product) {
@@ -48,13 +53,12 @@ export const getStaticProps: GetStaticProps<IProductDetailPageProps> = async (
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const filePath = path.join(process.cwd(), "data", "dummy-backend.json");
-  const jsonData = await fs.readFile(filePath);
-  const data: { products: Product[] } = JSON.parse(jsonData.toString());
-
+  const data = await getData();
+  const ids = data.products.map((product) => product.id);
+  const params = ids.map((id) => ({ params: { pid: id } }));
   return {
-    paths: [{ params: { pid: "p1" } }],
-    fallback: true, //could be blocking then server will wait to fetch data
+    paths: params,
+    fallback: false, //could be blocking then server will wait to fetch data
   };
 };
 
