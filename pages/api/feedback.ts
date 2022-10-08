@@ -1,25 +1,34 @@
 import fs from "fs";
 import path from "path";
 import { NextApiHandler } from "next";
+import { Feedback } from "../../types";
+
+const buildFeedbackPath = (): string =>
+  path.join(process.cwd(), "data", "feedback.json");
+
+const extractFeedback = (filePath: string): Feedback[] => {
+  return JSON.parse(fs.readFileSync(filePath).toString()) as Feedback[];
+};
 
 const handler: NextApiHandler = (req, res) => {
   if (req.method === "POST") {
     console.log(req.body);
     const { email, feedback } = req.body;
-    const newFeedback = {
+    const newFeedback: Feedback = {
       id: Date.now(),
       email,
       feedback,
     };
 
-    const filePath = path.join(process.cwd(), "data", "feedback.json");
-    const fileData = JSON.parse(fs.readFileSync(filePath).toString());
+    const filePath = buildFeedbackPath();
+    const fileData = extractFeedback(filePath);
     fileData.push(newFeedback);
     fs.writeFileSync(filePath, JSON.stringify(fileData));
-
     res.status(201).json({ message: "Success", feedback: newFeedback });
   } else {
-    res.status(400).json({ message: "Wrong method" });
+    const filePath = buildFeedbackPath();
+    const fileData = extractFeedback(filePath);
+    res.status(200).json({ feedback: fileData });
   }
 };
 
