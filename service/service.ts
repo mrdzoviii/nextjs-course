@@ -34,3 +34,18 @@ export const fetchEvent = async (id: string): Promise<Event | undefined> => {
   if (!data) return;
   return { id, ...data };
 };
+
+export const fetchEventsByDate = async (dateFilter: {
+  year: number;
+  month: number;
+}): Promise<Event[]> => {
+  const { year, month } = dateFilter;
+
+  let filteredEvents = await fetchEvents({});
+  return filteredEvents.filter((event) => {
+    const eventDate = new Date(event.date);
+    return (
+      eventDate.getFullYear() === year && eventDate.getMonth() === month - 1
+    );
+  });
+};
