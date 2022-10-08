@@ -1,7 +1,8 @@
+import { ReactElement } from "react";
 import MainHeader from "./main-header";
 
 export interface ILayoutProps {
-  children: React.ReactElement;
+  children: React.ReactElement | React.ReactElement[];
 }
 
 export default function Layout({ children }: ILayoutProps) {
