@@ -3,10 +3,10 @@ import path from "path";
 import { NextApiHandler } from "next";
 import { Feedback } from "../../types";
 
-const buildFeedbackPath = (): string =>
+export const buildFeedbackPath = (): string =>
   path.join(process.cwd(), "data", "feedback.json");
 
-const extractFeedback = (filePath: string): Feedback[] => {
+export const extractFeedback = (filePath: string): Feedback[] => {
   return JSON.parse(fs.readFileSync(filePath).toString()) as Feedback[];
 };
 
