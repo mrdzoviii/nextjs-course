@@ -7,10 +7,18 @@ export interface IFeedbackPageProps {
 }
 
 const FeedbackPage: NextPage<IFeedbackPageProps> = ({ items }) => {
+  const loadFeedback = (id: string) => {
+    fetch(`/api/feedback/${id}`)
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
+
   return (
     <ul>
       {items.map((item) => (
-        <li key={item.id}>{item.feedback}</li>
+        <li key={item.id}>
+          <button onClick={() => loadFeedback(item.id)}>Show details</button>
+        </li>
       ))}
     </ul>
   );

@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { NextApiHandler } from "next";
-import { Feedback } from "../../types";
+import { Feedback } from "../../../types";
 
 export const buildFeedbackPath = (): string =>
   path.join(process.cwd(), "data", "feedback.json");
@@ -15,7 +15,7 @@ const handler: NextApiHandler = (req, res) => {
     console.log(req.body);
     const { email, feedback } = req.body;
     const newFeedback: Feedback = {
-      id: Date.now(),
+      id: `f${Date.now().toString()}`,
       email,
       feedback,
     };

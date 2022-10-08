@@ -1,5 +1,5 @@
 export type Feedback = {
-  id: number;
+  id: string;
   email: string;
   feedback: string;
 };
