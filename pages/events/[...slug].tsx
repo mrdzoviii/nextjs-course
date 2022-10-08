@@ -1,21 +1,29 @@
-import { GetServerSideProps, NextPage } from "next";
+import { useRouter } from "next/router";
 import EventList from "../../components/events/event-list";
 import ResultsTitle from "../../components/results-title/results-title";
 import Button from "../../components/ui/button";
 import ErrorAlert from "../../components/ui/error-alert";
-import { Event, getFilteredEvents } from "../../dummy-data";
-import { fetchEventsByDate } from "../../service/service";
+import { getFilteredEvents } from "../../dummy-data";
 
-export interface IFilteredEventsPageProps {
-  events?: Event[];
-  date?: number;
-}
+export default function FilteredEventsPage() {
+  const router = useRouter();
+  const filterData = router.query.slug as string[];
 
-const FilteredEventsPage: NextPage<IFilteredEventsPageProps> = ({
-  events,
-  date,
-}) => {
-  if (!events && !date) {
+  if (!filterData) {
+    return <p className="center">Loading...</p>;
+  }
+
+  const numYear = +filterData[0];
+  const numMonth = +filterData[1];
+
+  if (
+    isNaN(numYear) ||
+    isNaN(numMonth) ||
+    numYear > 2030 ||
+    numYear < 2021 ||
+    numMonth < 1 ||
+    numMonth > 12
+  ) {
     return (
       <>
         <ErrorAlert>
@@ -27,6 +35,11 @@ const FilteredEventsPage: NextPage<IFilteredEventsPageProps> = ({
       </>
     );
   }
+
+  const events = getFilteredEvents({
+    year: numYear,
+    month: numMonth,
+  });
 
   if (!events || events.length === 0) {
     return (
@@ -41,39 +54,12 @@ const FilteredEventsPage: NextPage<IFilteredEventsPageProps> = ({
     );
   }
 
+  const date = new Date(numYear, numMonth - 1);
+
   return (
     <>
-      <ResultsTitle date={new Date(date)} />
+      <ResultsTitle date={date} />
       <EventList events={events} />
     </>
   );
-};
-
-export const getServerSideProps: GetServerSideProps<
-  IFilteredEventsPageProps
-> = async (ctx) => {
-  const params = ctx.params.slug;
-  const year = +params[0];
-  const month = +params[1];
-
-  if (
-    isNaN(year) ||
-    isNaN(month) ||
-    year > 2030 ||
-    year < 2021 ||
-    month < 1 ||
-    month > 12
-  ) {
-    return { props: {} };
-  }
-  const events = await fetchEventsByDate({ year, month });
-  const date = new Date(year, month - 1).getTime();
-  return {
-    props: {
-      events,
-      date,
-    },
-  };
-};
-
-export default FilteredEventsPage;
+}
