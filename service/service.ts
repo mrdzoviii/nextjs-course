@@ -25,3 +25,12 @@ export const fetchEvents = async (
   }
   return events;
 };
+
+export const fetchEvent = async (id: string): Promise<Event | undefined> => {
+  const response = await fetch(
+    `https://next-js-database-default-rtdb.europe-west1.firebasedatabase.app/events/${id}.json`
+  );
+  const data = await response.json();
+  if (!data) return;
+  return { id, ...data };
+};
