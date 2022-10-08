@@ -1,10 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { useRouter } from "next/router";
 import EventContent from "../../components/event-detail/event-content";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventSummary from "../../components/event-detail/event-summary";
 import ErrorAlert from "../../components/ui/error-alert";
-import { Event, getEventById } from "../../dummy-data";
+import { Event } from "../../dummy-data";
 import { fetchEvent, fetchEvents } from "../../service/service";
 
 export interface IEventDetailPageProps {
@@ -46,11 +45,12 @@ export const getStaticProps: GetStaticProps<IEventDetailPageProps> = async (
     props: {
       event,
     },
+    revalidate: 60 * 60 * 24,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const events = await fetchEvents({});
+  const events = await fetchEvents({ orderBy: "isFeatured", equalTo: true });
   const eventPaths = events.map((event) => ({ params: { id: event.id } }));
   return {
     paths: eventPaths,

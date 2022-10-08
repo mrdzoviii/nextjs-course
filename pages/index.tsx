@@ -1,6 +1,6 @@
 import { GetStaticProps, NextPage } from "next";
 import EventList from "../components/events/event-list";
-import { Event, getFeaturedEvents } from "../dummy-data";
+import { Event } from "../dummy-data";
 import { fetchEvents } from "../service/service";
 
 export interface IHomePageProps {
