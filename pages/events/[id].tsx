@@ -3,6 +3,7 @@ import Head from "next/head";
 import EventContent from "../../components/event-detail/event-content";
 import EventLogistics from "../../components/event-detail/event-logistics";
 import EventSummary from "../../components/event-detail/event-summary";
+import Comments from "../../components/input/comments";
 import ErrorAlert from "../../components/ui/error-alert";
 import { Event } from "../../dummy-data";
 import { fetchEvent, fetchEvents } from "../../service/service";
@@ -38,6 +39,7 @@ const EventDetailPage: NextPage<IEventDetailPageProps> = ({ event }) => {
       <EventContent>
         <p>{event.description}</p>
       </EventContent>
+      <Comments eventId={event.id} />
     </>
   );
 };

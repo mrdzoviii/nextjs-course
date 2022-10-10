@@ -1,6 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import EventList from "../components/events/event-list";
+import NewsletterRegistration from "../components/input/newsletter-registration";
 import { Event } from "../dummy-data";
 import { fetchEvents } from "../service/service";
 
@@ -18,6 +19,7 @@ const HomePage: NextPage<IHomePageProps> = ({ featuredEvents }) => {
           content="Fina a lot of great events to evolve"
         />
       </Head>
+      <NewsletterRegistration />
       <EventList events={featuredEvents} />
     </div>
   );
