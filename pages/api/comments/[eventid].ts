@@ -1,15 +1,22 @@
 import { MongoClient } from "mongodb";
 import { NextApiHandler } from "next";
 import { Comment } from "../../../components/input/comments";
+import {
+  connectDB,
+  insertDocument,
+  getAllDocuments,
+} from "../../../helpers/db-util";
 const handler: NextApiHandler = async (req, res) => {
   const eventId = req.query.eventid as string;
 
-  const host = process.env.DB_HOST;
-  const username = process.env.DB_USER;
-  const pass = process.env.DB_PASS;
-  const client = await MongoClient.connect(
-    `mongodb+srv://${username}:${pass}@${host}/?retryWrites=true&w=majority`
-  );
+  let client;
+
+  try {
+    client = await connectDB();
+  } catch (err) {
+    res.status(500).json({ message: "Connecting to the db failed" });
+    return;
+  }
 
   if (req.method === "POST") {
     const { email, name, text } = req.body as {
@@ -30,19 +37,27 @@ const handler: NextApiHandler = async (req, res) => {
       return;
     }
     const comment = { email, name, text, eventId } as Comment;
-    const db = client.db("events");
-    const result = await db.collection("comments").insertOne(comment);
-    comment.id = result.insertedId.toString();
-    res.status(201).json({ message: "Added comment.", comment });
+
+    try {
+      const result = await insertDocument(client, "comments", { ...comment });
+      comment.id = result.insertedId.toString();
+      res.status(201).json({ message: "Added comment.", comment });
+    } catch (err) {
+      res.status(500).json({ message: "Inserting data failed" });
+    }
   }
   if (req.method === "GET") {
-    const db = client.db("events");
-    const comments = await db
-      .collection("comments")
-      .find({ eventId })
-      .sort({ _id: -1 })
-      .toArray();
-    res.status(200).json({ comments });
+    try {
+      const comments = await getAllDocuments(
+        client,
+        "comments",
+        { eventId },
+        { _id: -1 }
+      );
+      res.status(200).json({ comments });
+    } catch (err) {
+      res.status(500).json({ message: "Getting comments failed" });
+    }
   }
   client.close();
   return;
