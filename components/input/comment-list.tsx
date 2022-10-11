@@ -1,6 +1,9 @@
-import classes from './comment-list.module.css';
+import { NextPage } from "next";
+import classes from "./comment-list.module.css";
 
-function CommentList() {
+export interface ICommentListProps {}
+
+const CommentList: NextPage<ICommentListProps> = () => {
   return (
     <ul className={classes.comments}>
       {/* Render list of comments - fetched from API */}
@@ -18,6 +21,6 @@ function CommentList() {
       </li>
     </ul>
   );
-}
+};
 
 export default CommentList;
