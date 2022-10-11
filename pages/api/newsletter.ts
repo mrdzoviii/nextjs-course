@@ -19,7 +19,7 @@ const handler: NextApiHandler = async (req, res) => {
       `mongodb+srv://${username}:${pass}@${host}/?retryWrites=true&w=majority`
     );
 
-    const db = client.db("newsletter");
+    const db = client.db("events");
     await db.collection("emails").insertOne({ email: userEmail });
 
     client.close();

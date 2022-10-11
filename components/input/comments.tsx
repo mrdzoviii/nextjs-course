@@ -14,6 +14,7 @@ export type Comment = {
   email: string;
   name: string;
   text: string;
+  eventId: string;
 };
 
 const Comments: NextPage<ICommentsProps> = ({ eventId }) => {
