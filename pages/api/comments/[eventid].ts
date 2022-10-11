@@ -36,19 +36,13 @@ const handler: NextApiHandler = async (req, res) => {
     res.status(201).json({ message: "Added comment.", comment });
   }
   if (req.method === "GET") {
-    const dummyList = [
-      {
-        id: "c1",
-        name: "Max",
-        text: "First comment",
-      },
-      {
-        id: "c1",
-        name: "Manu",
-        text: "Second comment",
-      },
-    ];
-    res.status(200).json({ comments: dummyList });
+    const db = client.db("events");
+    const comments = await db
+      .collection("comments")
+      .find({ eventId })
+      .sort({ _id: -1 })
+      .toArray();
+    res.status(200).json({ comments });
   }
   client.close();
   return;
