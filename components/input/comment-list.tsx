@@ -1,24 +1,23 @@
+import { link } from "fs";
 import { NextPage } from "next";
 import classes from "./comment-list.module.css";
+import { Comment } from "./comments";
 
-export interface ICommentListProps {}
+export interface ICommentListProps {
+  comments: Comment[];
+}
 
-const CommentList: NextPage<ICommentListProps> = () => {
+const CommentList: NextPage<ICommentListProps> = ({ comments }) => {
   return (
     <ul className={classes.comments}>
-      {/* Render list of comments - fetched from API */}
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
+      {comments.map((comment) => (
+        <li key={comment.id}>
+          <p>{comment.text}</p>
+          <div>
+            By <address>{comment.name}</address>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 };

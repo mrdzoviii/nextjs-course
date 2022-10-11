@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import classes from "./new-comment.module.css";
 export interface INewCommentProps {
   onAddComment: (comment: {
@@ -16,25 +16,25 @@ const NewComment: NextPage<INewCommentProps> = ({ onAddComment }) => {
   const nameInputRef = useRef<HTMLInputElement>();
   const commentInputRef = useRef<HTMLTextAreaElement>();
 
-  function sendCommentHandler(event) {
+  function sendCommentHandler(event: FormEvent) {
     event.preventDefault();
 
     const enteredEmail = emailInputRef.current.value;
     const enteredName = nameInputRef.current.value;
     const enteredComment = commentInputRef.current.value;
 
-    if (
-      !enteredEmail ||
-      enteredEmail.trim() === "" ||
-      !enteredEmail.includes("@") ||
-      !enteredName ||
-      enteredName.trim() === "" ||
-      !enteredComment ||
-      enteredComment.trim() === ""
-    ) {
-      setIsInvalid(true);
-      return;
-    }
+    // if (
+    //   !enteredEmail ||
+    //   enteredEmail.trim() === "" ||
+    //   !enteredEmail.includes("@") ||
+    //   !enteredName ||
+    //   enteredName.trim() === "" ||
+    //   !enteredComment ||
+    //   enteredComment.trim() === ""
+    // ) {
+    //   setIsInvalid(true);
+    //   return;
+    // }
 
     onAddComment({
       email: enteredEmail,
@@ -44,7 +44,7 @@ const NewComment: NextPage<INewCommentProps> = ({ onAddComment }) => {
   }
 
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={sendCommentHandler}>
       <div className={classes.row}>
         <div className={classes.control}>
           <label htmlFor="email">Your email</label>
