@@ -1,4 +1,10 @@
-import { createContext, ReactElement, useMemo, useState } from "react";
+import {
+  createContext,
+  ReactElement,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 export type Notification = {
   title: string;
@@ -26,6 +32,13 @@ export const NotificationContextProvider = ({
   const [activeNotification, setActiveNotification] = useState<
     Notification | undefined
   >(undefined);
+
+  useEffect(() => {
+    if (activeNotification && activeNotification.status !== "error") {
+      const timer = setTimeout(() => setActiveNotification(undefined), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [activeNotification]);
 
   const context = useMemo<INotificationContext>(() => {
     const showNotification = (notification: Notification) => {
