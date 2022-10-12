@@ -1,5 +1,6 @@
 import { NextPage } from "next";
-import { FormEvent, useRef } from "react";
+import { FormEvent, useContext, useRef } from "react";
+import NotificationContext from "../../store/notification-context";
 import classes from "./newsletter-registration.module.css";
 
 export interface INewSletterRegistration {}
@@ -7,9 +8,17 @@ export interface INewSletterRegistration {}
 const NewsletterRegistration: NextPage<INewSletterRegistration> = () => {
   const emailInput = useRef<HTMLInputElement>();
 
+  const { showNotification } = useContext(NotificationContext);
+
   function registrationHandler(event: FormEvent) {
     event.preventDefault();
     const email = emailInput.current.value;
+
+    showNotification({
+      message: "Registering for newsletter",
+      title: "Signing up...",
+      status: "pending",
+    });
 
     fetch("/api/newsletter", {
       method: "POST",
@@ -18,12 +27,28 @@ const NewsletterRegistration: NextPage<INewSletterRegistration> = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-
-    // fetch user input (state or refs)
-    // optional: validate input
-    // send valid data to API
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return res.json().then((data) => {
+          throw new Error(data.message || "Something went wrong");
+        });
+      })
+      .then(() =>
+        showNotification({
+          title: "Success",
+          message: "Successfully registered for newsletter",
+          status: "success",
+        })
+      )
+      .catch((err) =>
+        showNotification({
+          title: "Error!",
+          message: err.message || "Something went wrong",
+          status: "error",
+        })
+      );
   }
 
   return (
