@@ -7,3 +7,13 @@ export type Post = {
   content: string;
   isFeatured: boolean;
 };
+
+export interface IContactFormRequest {
+  email: string;
+  name: string;
+  message: string;
+}
+
+export type ContactForm = IContactFormRequest && {
+  _id: string
+}
