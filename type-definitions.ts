@@ -14,6 +14,6 @@ export interface IContactFormRequest {
   message: string;
 }
 
-export type ContactForm = IContactFormRequest && {
-  _id: string
-}
+export type ContactForm = IContactFormRequest & {
+  _id: string;
+};

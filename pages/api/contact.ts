@@ -1,6 +1,6 @@
 import { NextApiHandler } from "next";
 
-import { IContactFormRequest } from "../../../type-definitions";
+import { IContactFormRequest } from "../../type-definitions";
 
 const handler: NextApiHandler = (req, res) => {
   if (req.method === "POST") {
@@ -21,12 +21,10 @@ const handler: NextApiHandler = (req, res) => {
     //STORE IN DB
 
     const newMessage: IContactFormRequest = { email, name, message };
-    res
-      .status(201)
-      .json({
-        message: "Successfully stored message",
-        storedMessage: newMessage,
-      });
+    res.status(201).json({
+      message: "Successfully stored message",
+      storedMessage: newMessage,
+    });
   }
 };
 export default handler;
