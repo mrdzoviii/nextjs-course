@@ -22,12 +22,17 @@ const Comments: NextPage<ICommentsProps> = ({ eventId }) => {
   const [showComments, setShowComments] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
   const { showNotification } = useContext(NotificationContext);
+  const [isFetchingComments, setIsFetchingComments] = useState<boolean>(false);
 
   useEffect(() => {
     if (showComments) {
+      setIsFetchingComments(true);
       fetch(`/api/comments/${eventId}`, { method: "GET" })
         .then((res) => res.json())
-        .then((data) => setComments([...data.comments]));
+        .then((data) => {
+          setComments([...data.comments]);
+          setIsFetchingComments(false);
+        });
     }
   }, [eventId, showComments]);
 
@@ -80,7 +85,10 @@ const Comments: NextPage<ICommentsProps> = ({ eventId }) => {
         {showComments ? "Hide" : "Show"} Comments
       </button>
       {showComments && <NewComment onAddComment={addCommentHandler} />}
-      {showComments && <CommentList comments={comments} />}
+      {showComments && !isFetchingComments && (
+        <CommentList comments={comments} />
+      )}
+      {showComments && isFetchingComments && <p>Loading...</p>}
     </section>
   );
 };
