@@ -5,4 +5,5 @@ export type Post = {
   date: string;
   slug: string;
   content: string;
+  isFeatured: boolean;
 };

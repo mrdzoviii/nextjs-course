@@ -1,50 +1,25 @@
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 
 import { Post } from "../../type-definitions";
 
 import AllPosts from "../../components/posts/all-posts";
+import { getAllPosts } from "../../helpers/posts-util";
 
-const DUMMY_POSTS: Post[] = [
-  {
-    slug: "getting-started-nextjs",
-    title: "Getting starting with NextJS",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "NextJS is React framework for production - it makes building fullstack React apps breeze and ships with built-in SSR.",
-    date: "2022-02-10",
-    content: "# This is a first post",
-  },
-  {
-    slug: "getting-started-nextjs2",
-    title: "Getting starting with NextJS",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "NextJS is React framework for production - it makes building fullstack React apps breeze and ships with built-in SSR.",
-    date: "2022-02-10",
-    content: "# This is a first post",
-  },
-  {
-    slug: "getting-started-nextjs3",
-    title: "Getting starting with NextJS",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "NextJS is React framework for production - it makes building fullstack React apps breeze and ships with built-in SSR.",
-    date: "2022-02-10",
-    content: "# This is a first post",
-  },
-  {
-    slug: "getting-started-nextjs4",
-    title: "Getting starting with NextJS",
-    image: "getting-started-nextjs.png",
-    excerpt:
-      "NextJS is React framework for production - it makes building fullstack React apps breeze and ships with built-in SSR.",
-    date: "2022-02-10",
-    content: "# This is a first post",
-  },
-];
+export interface IAllPostsPage {
+  posts: Post[];
+}
 
-const AllPostsPage: NextPage = () => {
-  return <AllPosts posts={DUMMY_POSTS} />;
+const AllPostsPage: NextPage<IAllPostsPage> = ({ posts }) => {
+  return <AllPosts posts={posts} />;
+};
+
+export const getStaticProps: GetStaticProps<IAllPostsPage> = async () => {
+  const allPosts = getAllPosts();
+  return {
+    props: {
+      posts: allPosts,
+    },
+  };
 };
 
 export default AllPostsPage;

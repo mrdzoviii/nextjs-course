@@ -16,7 +16,6 @@ const PostItem: FC<IPostItemProps> = ({ post }) => {
     month: "long",
     year: "numeric",
   });
-
   return (
     <li className={classes.post}>
       <Link href={`/posts/${post.slug}`}>
