@@ -1,4 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
+import Head from "next/head";
 
 import { Post } from "../../type-definitions";
 
@@ -10,7 +11,15 @@ export interface IAllPostsPage {
 }
 
 const AllPostsPage: NextPage<IAllPostsPage> = ({ posts }) => {
-  return <AllPosts posts={posts} />;
+  return (
+    <>
+      <Head>
+        <title>All Posts</title>
+        <meta name="description" content="List of all courses" />
+      </Head>
+      <AllPosts posts={posts} />
+    </>
+  );
 };
 
 export const getStaticProps: GetStaticProps<IAllPostsPage> = async () => {

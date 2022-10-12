@@ -1,4 +1,5 @@
 import { GetStaticProps, NextPage } from "next";
+import Head from "next/head";
 
 import { Post } from "../type-definitions";
 
@@ -13,6 +14,10 @@ export interface IHomePageProps {
 const HomePage: NextPage<IHomePageProps> = ({ posts }) => {
   return (
     <>
+      <Head>
+        <title>Jovan&apos;s blog</title>
+        <meta name="description" content="I post about web development" />
+      </Head>
       <Hero />
       <FeaturedPosts posts={posts} />
     </>
