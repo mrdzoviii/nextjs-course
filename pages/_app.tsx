@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Layout from "../components/layout/layout";
 import Head from "next/head";
-import Notification from "../components/ui/notification";
 import { NotificationContextProvider } from "../store/notification-context";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -16,7 +15,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           />
         </Head>
         <Component {...pageProps} />
-        <Notification status="error" />
       </Layout>
     </NotificationContextProvider>
   );
