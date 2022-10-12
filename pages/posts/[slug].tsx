@@ -1,11 +1,9 @@
 import { NextPage } from "next";
 
+import PostContent from "../../components/posts/post-content";
+
 const PostDetailPage: NextPage = () => {
-  return (
-    <div>
-      <h1>The Home Page</h1>
-    </div>
-  );
+  return <PostContent />;
 };
 
 export default PostDetailPage;

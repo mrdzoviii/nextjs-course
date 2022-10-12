@@ -12,6 +12,7 @@ const DUMMY_POSTS: Post[] = [
     excerpt:
       "NextJS is React framework for production - it makes building fullstack React apps breeze and ships with built-in SSR.",
     date: "2022-02-10",
+    content: "# This is a first post",
   },
   {
     slug: "getting-started-nextjs2",
@@ -20,6 +21,7 @@ const DUMMY_POSTS: Post[] = [
     excerpt:
       "NextJS is React framework for production - it makes building fullstack React apps breeze and ships with built-in SSR.",
     date: "2022-02-10",
+    content: "# This is a first post",
   },
   {
     slug: "getting-started-nextjs3",
@@ -28,6 +30,7 @@ const DUMMY_POSTS: Post[] = [
     excerpt:
       "NextJS is React framework for production - it makes building fullstack React apps breeze and ships with built-in SSR.",
     date: "2022-02-10",
+    content: "# This is a first post",
   },
   {
     slug: "getting-started-nextjs4",
@@ -36,6 +39,7 @@ const DUMMY_POSTS: Post[] = [
     excerpt:
       "NextJS is React framework for production - it makes building fullstack React apps breeze and ships with built-in SSR.",
     date: "2022-02-10",
+    content: "# This is a first post",
   },
 ];
 
