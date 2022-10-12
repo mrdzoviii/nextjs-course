@@ -33,7 +33,7 @@ const ContactForm: FC = () => {
       const timer = setTimeout(() => {
         setRequestStatus(null);
         setRequestError(null);
-      }, 3000);
+      }, 300000);
       return () => clearTimeout(timer);
     }
   }, [requestStatus]);
