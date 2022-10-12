@@ -1,5 +1,7 @@
 import { FC } from "react";
 
+import ReactMarkdown from "react-markdown";
+
 import { Post } from "../../type-definitions";
 
 import PostHeader from "./post-header";
@@ -23,7 +25,7 @@ const PostContent: FC<IPostContentProps> = () => {
   return (
     <article className={classes.content}>
       <PostHeader title={DUMMY_POST.title} image={imagePath} />
-      {DUMMY_POST.content}
+      <ReactMarkdown>{DUMMY_POST.content}</ReactMarkdown>
     </article>
   );
 };
