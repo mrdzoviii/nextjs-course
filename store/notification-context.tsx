@@ -34,7 +34,7 @@ export const NotificationContextProvider = ({
   >(undefined);
 
   useEffect(() => {
-    if (activeNotification && activeNotification.status !== "error") {
+    if (activeNotification && activeNotification.status !== "pending") {
       const timer = setTimeout(() => setActiveNotification(undefined), 3000);
       return () => clearTimeout(timer);
     }
