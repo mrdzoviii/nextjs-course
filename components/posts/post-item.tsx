@@ -27,6 +27,7 @@ const PostItem: FC<IPostItemProps> = ({ post }) => {
               alt={post.title}
               height={200}
               width={300}
+              layout="responsive"
             />
           </div>
           <div className={classes.content}>
