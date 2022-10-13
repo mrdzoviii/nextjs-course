@@ -12,7 +12,7 @@ import PostHeader from "./post-header";
 
 import classes from "./post-content.module.css";
 
-SyntaxHighlighter.register("js", js);
+SyntaxHighlighter.registerLanguage("js", js);
 
 export interface IPostContentProps {
   post: Post;
