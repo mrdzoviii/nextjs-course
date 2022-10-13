@@ -1,8 +1,19 @@
-import '../styles/globals.css'
-import type { AppProps } from 'next/app'
+import type { AppProps } from "next/app";
+import Head from "next/head";
+
+import Layout from "../components/layout/layout";
+
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <Layout>
+      <Head>
+        <meta name="viewport" content="width=device-width, inital-scale=1" />
+      </Head>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
 
-export default MyApp
+export default MyApp;
