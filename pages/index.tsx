@@ -1,11 +1,9 @@
 import { NextPage } from "next";
 
+import StartingPageContent from "../components/starting-page/starting-page";
+
 const HomePage: NextPage = () => {
-  return (
-    <div>
-      <h1>The Home Page</h1>
-    </div>
-  );
+  return <StartingPageContent />;
 };
 
 export default HomePage;
