@@ -21,7 +21,7 @@ const handler: NextApiHandler = async (req, res) => {
     const client = await connectToDatabase();
     const db = client.db();
 
-    const existingUser = db.collection("users").findOne({ email });
+    const existingUser = await db.collection("users").findOne({ email });
     if (existingUser) {
       res.status(409).json({ message: "User with given email already exists" });
       client.close();
