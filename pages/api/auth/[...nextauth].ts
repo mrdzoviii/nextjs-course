@@ -5,9 +5,16 @@ import CredentialProvider from "next-auth/providers/credentials";
 import { User } from "next-auth";
 
 export default NextAuth({
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/auth",
+  },
+  jwt: {},
   providers: [
     CredentialProvider({
-      credentials: { email: {}, password: {} },
+      credentials: { email: { type: "text" }, password: { type: "password" } },
       async authorize(credentials) {
         const client = await connectToDatabase();
         const db = client.db();
