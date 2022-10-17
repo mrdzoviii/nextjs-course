@@ -8,10 +8,6 @@ export default NextAuth({
   session: {
     strategy: "jwt",
   },
-  pages: {
-    signIn: "/auth",
-  },
-  jwt: {},
   providers: [
     CredentialProvider({
       credentials: { email: { type: "text" }, password: { type: "password" } },

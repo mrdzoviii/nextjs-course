@@ -3,7 +3,6 @@ import { FC, FormEvent, useState, useRef } from "react";
 import { signIn } from "next-auth/react";
 
 import classes from "./auth-form.module.css";
-import { redirect } from "next/dist/server/api-utils";
 
 const createUser = async (email: string, password: string) => {
   const response = await fetch("/api/auth/sign-up", {

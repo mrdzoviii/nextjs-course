@@ -9,7 +9,7 @@ const MainNavigation: FC = () => {
   const { data: session, status } = useSession();
 
   const logOutHandler = () => {
-    signOut();
+    signOut({ redirect: false });
   };
 
   return (
