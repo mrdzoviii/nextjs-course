@@ -1,5 +1,7 @@
 import { FC, FormEvent, useState, useRef } from "react";
 
+import { useRouter } from "next/router";
+
 import { signIn } from "next-auth/react";
 
 import classes from "./auth-form.module.css";
@@ -22,6 +24,7 @@ const createUser = async (email: string, password: string) => {
 
 const AuthForm: FC = () => {
   const [isLogin, setIsLogin] = useState<boolean>(true);
+  const router = useRouter();
   const emailInputRef = useRef<HTMLInputElement>();
   const passwordInputRef = useRef<HTMLInputElement>();
 
@@ -47,7 +50,7 @@ const AuthForm: FC = () => {
         const result = await createUser(email, password);
         console.log(result);
       } catch (err) {
-        console.log(err);
+        router.replace("/profile");
       }
     }
   };
