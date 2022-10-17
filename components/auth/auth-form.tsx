@@ -44,11 +44,10 @@ const AuthForm: FC = () => {
         email,
         password,
       });
-      console.log(result);
+      router.replace("/");
     } else {
       try {
         const result = await createUser(email, password);
-        console.log(result);
       } catch (err) {
         router.replace("/profile");
       }
